@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectSysLanguageList" parameterType="SysLanguage" resultMap="SysLanguageResult">
         <include refid="selectSysLanguageVo"/>
         <where>  
-            <if test="langKey != null  and langKey != ''"> and lang_key = #{langKey}</if>
+            <if test="langKey != null  and langKey != ''"> and lang_key like concat('%', #{langKey}, '%')</if>
             <if test="langType != null  and langType != ''"> and lang_type = #{langType}</if>
             <if test="langZh != null  and langZh != ''"> and lang_zh = #{langZh}</if>
             <if test="langEn != null  and langEn != ''"> and lang_en = #{langEn}</if>

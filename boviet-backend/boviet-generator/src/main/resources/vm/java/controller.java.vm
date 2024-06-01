@@ -1,5 +1,5 @@
 #set($package=$packageName.replace($packageName.substring($packageName.lastIndexOf(".")+1),"web"))
-package ${package}.controller;
+package ${package}.controller.${moduleName};
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;

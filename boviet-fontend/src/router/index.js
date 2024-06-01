@@ -46,6 +46,11 @@ export const constantRoutes = [
     component: () => import('@/views/login'),
     hidden: true
   },
+  // {
+  //   path: '/hr/employee_add',
+  //   component: () => import('@/views/hr/employee_info/add'),
+  //   hidden: true
+  // },
   {
     path: '/register',
     component: () => import('@/views/register'),

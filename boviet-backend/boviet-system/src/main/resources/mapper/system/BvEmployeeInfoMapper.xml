@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boviet.system.mapper.BvEmployeeInfoMapper">
+    
+    <resultMap type="BvEmployeeInfo" id="BvEmployeeInfoResult">
+        <result property="id"                  column="id"/>
+        <result property="fullName"                  column="full_name"/>
+        <result property="gender"                  column="gender"/>
+        <result property="birthDate"                  column="birth_date"/>
+        <result property="maritalStatus"                  column="marital_status"/>
+        <result property="politicalAffiliation"                  column="political_affiliation"/>
+        <result property="childrenCount"                  column="children_count"/>
+        <result property="idNumber"                  column="id_number"/>
+        <result property="idAddress"                  column="id_address"/>
+        <result property="contactAddress"                  column="contact_address"/>
+        <result property="mobilePhone"                  column="mobile_phone"/>
+        <result property="bankAccountNumber"                  column="bank_account_number"/>
+        <result property="bankName"                  column="bank_name"/>
+        <result property="height"                  column="height"/>
+        <result property="weight"                  column="weight"/>
+        <result property="uniformSize"                  column="uniform_size"/>
+        <result property="dormitoryResident"                  column="dormitory_resident"/>
+        <result property="firstJobDate"                  column="first_job_date"/>
+        <result property="householdType"                  column="household_type"/>
+        <result property="nativePlace"                  column="native_place"/>
+        <result property="ethnicity"                  column="ethnicity"/>
+        <result property="bloodType"                  column="blood_type"/>
+        <result property="idCardImage"                  column="id_card_image"/>
+        <result property="lastName"                  column="last_name"/>
+        <result property="firstName"                  column="first_name"/>
+        <result property="nationality"                  column="nationality"/>
+        <result property="passportNumber"                  column="passport_number"/>
+        <result property="householdProvince"                  column="household_province"/>
+        <result property="cardImage"                  column="card_image"/>
+        <result property="idCardValidity"                  column="id_card_validity"/>
+        <result property="email"                  column="email"/>
+        <result property="highestEducation"                  column="highest_education"/>
+        <result property="educationType"                  column="education_type"/>
+        <result property="otherRequired"                  column="other_required"/>
+        <result property="healthReportImage"                  column="health_report_image"/>
+        <result property="bankCardImage"                  column="bank_card_image"/>
+        <result property="idCardCopyImage"                  column="id_card_copy_image"/>
+        <result property="jobConfirmImage"                  column="job_confirm_image"/>
+    </resultMap>
+
+    <resultMap id="BvEmployeeInfoBvEmployeeEducationResult" type="BvEmployeeInfo" extends="BvEmployeeInfoResult">
+        <collection property="bvEmployeeEducationList" notNullColumn="sub_id" javaType="java.util.List" resultMap="BvEmployeeEducationResult" />
+    </resultMap>
+
+    <resultMap type="BvEmployeeEducation" id="BvEmployeeEducationResult">
+        <result property="id"                  column="sub_id"/>
+        <result property="employeeId"                  column="sub_employee_id"/>
+        <result property="schoolName"                  column="sub_school_name"/>
+        <result property="qualifications"                  column="sub_qualifications"/>
+        <result property="degree"                  column="sub_degree"/>
+        <result property="professional"                  column="sub_professional"/>
+        <result property="qualificationCode"                  column="sub_qualification_code"/>
+        <result property="startTime"                  column="sub_start_time"/>
+        <result property="endTime"                  column="sub_end_time"/>
+        <result property="createBy"                  column="sub_create_by"/>
+        <result property="createTime"                  column="sub_create_time"/>
+        <result property="updateBy"                  column="sub_update_by"/>
+        <result property="updateTime"                  column="sub_update_time"/>
+        <result property="remark"                  column="sub_remark"/>
+    </resultMap>
+
+    <sql id="selectBvEmployeeInfoVo">
+        select id, full_name, gender, birth_date, marital_status, political_affiliation, children_count, id_number, id_address, contact_address, mobile_phone, bank_account_number, bank_name, height, weight, uniform_size, dormitory_resident, first_job_date, household_type, native_place, ethnicity, blood_type, id_card_image, last_name, first_name, nationality, passport_number, household_province, card_image, id_card_validity, email, highest_education, education_type, other_required, health_report_image, bank_card_image, id_card_copy_image, job_confirm_image from bv_employee_info
+    </sql>
+
+    <select id="selectBvEmployeeInfoList" parameterType="BvEmployeeInfo" resultMap="BvEmployeeInfoResult">
+        <include refid="selectBvEmployeeInfoVo"/>
+        <where>  
+            <if test="fullName != null  and fullName != ''"> and full_name like concat('%', #{fullName}, '%')</if>
+            <if test="gender != null  and gender != ''"> and gender = #{gender}</if>
+            <if test="birthDate != null "> and birth_date = #{birthDate}</if>
+            <if test="maritalStatus != null  and maritalStatus != ''"> and marital_status = #{maritalStatus}</if>
+            <if test="politicalAffiliation != null  and politicalAffiliation != ''"> and political_affiliation = #{politicalAffiliation}</if>
+            <if test="childrenCount != null "> and children_count = #{childrenCount}</if>
+            <if test="idNumber != null  and idNumber != ''"> and id_number = #{idNumber}</if>
+            <if test="idAddress != null  and idAddress != ''"> and id_address = #{idAddress}</if>
+            <if test="contactAddress != null  and contactAddress != ''"> and contact_address = #{contactAddress}</if>
+            <if test="mobilePhone != null  and mobilePhone != ''"> and mobile_phone = #{mobilePhone}</if>
+            <if test="bankAccountNumber != null  and bankAccountNumber != ''"> and bank_account_number = #{bankAccountNumber}</if>
+            <if test="bankName != null  and bankName != ''"> and bank_name like concat('%', #{bankName}, '%')</if>
+            <if test="height != null "> and height = #{height}</if>
+            <if test="weight != null "> and weight = #{weight}</if>
+            <if test="uniformSize != null  and uniformSize != ''"> and uniform_size = #{uniformSize}</if>
+            <if test="dormitoryResident != null "> and dormitory_resident = #{dormitoryResident}</if>
+            <if test="firstJobDate != null "> and first_job_date = #{firstJobDate}</if>
+            <if test="householdType != null  and householdType != ''"> and household_type = #{householdType}</if>
+            <if test="nativePlace != null  and nativePlace != ''"> and native_place = #{nativePlace}</if>
+            <if test="ethnicity != null  and ethnicity != ''"> and ethnicity = #{ethnicity}</if>
+            <if test="bloodType != null  and bloodType != ''"> and blood_type = #{bloodType}</if>
+            <if test="idCardImage != null  and idCardImage != ''"> and id_card_image = #{idCardImage}</if>
+            <if test="lastName != null  and lastName != ''"> and last_name like concat('%', #{lastName}, '%')</if>
+            <if test="firstName != null  and firstName != ''"> and first_name like concat('%', #{firstName}, '%')</if>
+            <if test="nationality != null  and nationality != ''"> and nationality = #{nationality}</if>
+            <if test="passportNumber != null  and passportNumber != ''"> and passport_number = #{passportNumber}</if>
+            <if test="householdProvince != null  and householdProvince != ''"> and household_province = #{householdProvince}</if>
+            <if test="cardImage != null  and cardImage != ''"> and card_image = #{cardImage}</if>
+            <if test="idCardValidity != null "> and id_card_validity = #{idCardValidity}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="highestEducation != null  and highestEducation != ''"> and highest_education = #{highestEducation}</if>
+            <if test="educationType != null  and educationType != ''"> and education_type = #{educationType}</if>
+            <if test="otherRequired != null  and otherRequired != ''"> and other_required = #{otherRequired}</if>
+            <if test="healthReportImage != null  and healthReportImage != ''"> and health_report_image = #{healthReportImage}</if>
+            <if test="bankCardImage != null  and bankCardImage != ''"> and bank_card_image = #{bankCardImage}</if>
+            <if test="idCardCopyImage != null  and idCardCopyImage != ''"> and id_card_copy_image = #{idCardCopyImage}</if>
+            <if test="jobConfirmImage != null  and jobConfirmImage != ''"> and job_confirm_image = #{jobConfirmImage}</if>
+        </where>
+    </select>
+    
+    <select id="selectBvEmployeeInfoById" parameterType="Long" resultMap="BvEmployeeInfoBvEmployeeEducationResult">
+        select a.id, a.full_name, a.gender, a.birth_date, a.marital_status, a.political_affiliation, a.children_count, a.id_number, a.id_address, a.contact_address, a.mobile_phone, a.bank_account_number, a.bank_name, a.height, a.weight, a.uniform_size, a.dormitory_resident, a.first_job_date, a.household_type, a.native_place, a.ethnicity, a.blood_type, a.id_card_image, a.last_name, a.first_name, a.nationality, a.passport_number, a.household_province, a.card_image, a.id_card_validity, a.email, a.highest_education, a.education_type, a.other_required, a.health_report_image, a.bank_card_image, a.id_card_copy_image, a.job_confirm_image,
+ b.id as sub_id, b.employee_id as sub_employee_id, b.school_name as sub_school_name, b.qualifications as sub_qualifications, b.degree as sub_degree, b.professional as sub_professional, b.qualification_code as sub_qualification_code, b.start_time as sub_start_time, b.end_time as sub_end_time, b.create_by as sub_create_by, b.create_time as sub_create_time, b.update_by as sub_update_by, b.update_time as sub_update_time, b.remark as sub_remark
+        from bv_employee_info a
+        left join bv_employee_education b on b.employee_id = a.id
+        where a.id = #{id}
+    </select>
+        
+    <insert id="insertBvEmployeeInfo" parameterType="BvEmployeeInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into bv_employee_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fullName != null">full_name,</if>
+            <if test="gender != null">gender,</if>
+            <if test="birthDate != null">birth_date,</if>
+            <if test="maritalStatus != null">marital_status,</if>
+            <if test="politicalAffiliation != null">political_affiliation,</if>
+            <if test="childrenCount != null">children_count,</if>
+            <if test="idNumber != null">id_number,</if>
+            <if test="idAddress != null">id_address,</if>
+            <if test="contactAddress != null">contact_address,</if>
+            <if test="mobilePhone != null">mobile_phone,</if>
+            <if test="bankAccountNumber != null">bank_account_number,</if>
+            <if test="bankName != null">bank_name,</if>
+            <if test="height != null">height,</if>
+            <if test="weight != null">weight,</if>
+            <if test="uniformSize != null">uniform_size,</if>
+            <if test="dormitoryResident != null">dormitory_resident,</if>
+            <if test="firstJobDate != null">first_job_date,</if>
+            <if test="householdType != null">household_type,</if>
+            <if test="nativePlace != null">native_place,</if>
+            <if test="ethnicity != null">ethnicity,</if>
+            <if test="bloodType != null">blood_type,</if>
+            <if test="idCardImage != null">id_card_image,</if>
+            <if test="lastName != null">last_name,</if>
+            <if test="firstName != null">first_name,</if>
+            <if test="nationality != null">nationality,</if>
+            <if test="passportNumber != null">passport_number,</if>
+            <if test="householdProvince != null">household_province,</if>
+            <if test="cardImage != null">card_image,</if>
+            <if test="idCardValidity != null">id_card_validity,</if>
+            <if test="email != null">email,</if>
+            <if test="highestEducation != null">highest_education,</if>
+            <if test="educationType != null">education_type,</if>
+            <if test="otherRequired != null">other_required,</if>
+            <if test="healthReportImage != null">health_report_image,</if>
+            <if test="bankCardImage != null">bank_card_image,</if>
+            <if test="idCardCopyImage != null">id_card_copy_image,</if>
+            <if test="jobConfirmImage != null">job_confirm_image,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fullName != null">#{fullName},</if>
+            <if test="gender != null">#{gender},</if>
+            <if test="birthDate != null">#{birthDate},</if>
+            <if test="maritalStatus != null">#{maritalStatus},</if>
+            <if test="politicalAffiliation != null">#{politicalAffiliation},</if>
+            <if test="childrenCount != null">#{childrenCount},</if>
+            <if test="idNumber != null">#{idNumber},</if>
+            <if test="idAddress != null">#{idAddress},</if>
+            <if test="contactAddress != null">#{contactAddress},</if>
+            <if test="mobilePhone != null">#{mobilePhone},</if>
+            <if test="bankAccountNumber != null">#{bankAccountNumber},</if>
+            <if test="bankName != null">#{bankName},</if>
+            <if test="height != null">#{height},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="uniformSize != null">#{uniformSize},</if>
+            <if test="dormitoryResident != null">#{dormitoryResident},</if>
+            <if test="firstJobDate != null">#{firstJobDate},</if>
+            <if test="householdType != null">#{householdType},</if>
+            <if test="nativePlace != null">#{nativePlace},</if>
+            <if test="ethnicity != null">#{ethnicity},</if>
+            <if test="bloodType != null">#{bloodType},</if>
+            <if test="idCardImage != null">#{idCardImage},</if>
+            <if test="lastName != null">#{lastName},</if>
+            <if test="firstName != null">#{firstName},</if>
+            <if test="nationality != null">#{nationality},</if>
+            <if test="passportNumber != null">#{passportNumber},</if>
+            <if test="householdProvince != null">#{householdProvince},</if>
+            <if test="cardImage != null">#{cardImage},</if>
+            <if test="idCardValidity != null">#{idCardValidity},</if>
+            <if test="email != null">#{email},</if>
+            <if test="highestEducation != null">#{highestEducation},</if>
+            <if test="educationType != null">#{educationType},</if>
+            <if test="otherRequired != null">#{otherRequired},</if>
+            <if test="healthReportImage != null">#{healthReportImage},</if>
+            <if test="bankCardImage != null">#{bankCardImage},</if>
+            <if test="idCardCopyImage != null">#{idCardCopyImage},</if>
+            <if test="jobConfirmImage != null">#{jobConfirmImage},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBvEmployeeInfo" parameterType="BvEmployeeInfo">
+        update bv_employee_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fullName != null">full_name = #{fullName},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="birthDate != null">birth_date = #{birthDate},</if>
+            <if test="maritalStatus != null">marital_status = #{maritalStatus},</if>
+            <if test="politicalAffiliation != null">political_affiliation = #{politicalAffiliation},</if>
+            <if test="childrenCount != null">children_count = #{childrenCount},</if>
+            <if test="idNumber != null">id_number = #{idNumber},</if>
+            <if test="idAddress != null">id_address = #{idAddress},</if>
+            <if test="contactAddress != null">contact_address = #{contactAddress},</if>
+            <if test="mobilePhone != null">mobile_phone = #{mobilePhone},</if>
+            <if test="bankAccountNumber != null">bank_account_number = #{bankAccountNumber},</if>
+            <if test="bankName != null">bank_name = #{bankName},</if>
+            <if test="height != null">height = #{height},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="uniformSize != null">uniform_size = #{uniformSize},</if>
+            <if test="dormitoryResident != null">dormitory_resident = #{dormitoryResident},</if>
+            <if test="firstJobDate != null">first_job_date = #{firstJobDate},</if>
+            <if test="householdType != null">household_type = #{householdType},</if>
+            <if test="nativePlace != null">native_place = #{nativePlace},</if>
+            <if test="ethnicity != null">ethnicity = #{ethnicity},</if>
+            <if test="bloodType != null">blood_type = #{bloodType},</if>
+            <if test="idCardImage != null">id_card_image = #{idCardImage},</if>
+            <if test="lastName != null">last_name = #{lastName},</if>
+            <if test="firstName != null">first_name = #{firstName},</if>
+            <if test="nationality != null">nationality = #{nationality},</if>
+            <if test="passportNumber != null">passport_number = #{passportNumber},</if>
+            <if test="householdProvince != null">household_province = #{householdProvince},</if>
+            <if test="cardImage != null">card_image = #{cardImage},</if>
+            <if test="idCardValidity != null">id_card_validity = #{idCardValidity},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="highestEducation != null">highest_education = #{highestEducation},</if>
+            <if test="educationType != null">education_type = #{educationType},</if>
+            <if test="otherRequired != null">other_required = #{otherRequired},</if>
+            <if test="healthReportImage != null">health_report_image = #{healthReportImage},</if>
+            <if test="bankCardImage != null">bank_card_image = #{bankCardImage},</if>
+            <if test="idCardCopyImage != null">id_card_copy_image = #{idCardCopyImage},</if>
+            <if test="jobConfirmImage != null">job_confirm_image = #{jobConfirmImage},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBvEmployeeInfoById" parameterType="Long">
+        delete from bv_employee_info where id = #{id}
+    </delete>
+
+    <delete id="deleteBvEmployeeInfoByIds" parameterType="String">
+        delete from bv_employee_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+    <delete id="deleteBvEmployeeEducationByEmployeeIds" parameterType="String">
+        delete from bv_employee_education where employee_id in 
+        <foreach item="employeeId" collection="array" open="(" separator="," close=")">
+            #{employeeId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteBvEmployeeEducationByEmployeeId" parameterType="Long">
+        delete from bv_employee_education where employee_id = #{employeeId}
+    </delete>
+
+    <insert id="batchBvEmployeeEducation">
+        insert into bv_employee_education( id, employee_id, school_name, qualifications, degree, professional, qualification_code, start_time, end_time, create_by, create_time, update_by, update_time, remark) values
+		<foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.id}, #{item.employeeId}, #{item.schoolName}, #{item.qualifications}, #{item.degree}, #{item.professional}, #{item.qualificationCode}, #{item.startTime}, #{item.endTime}, #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime}, #{item.remark})
+        </foreach>
+    </insert>
+</mapper>

@@ -301,6 +301,7 @@
 #end
 #end
 #end
+#set($lang="`${$i18n.t('keyWork')}`")
 #set($label=$lang.replace("keyWork","serialNumber"))
 #if($table.sub)
         <el-divider content-position="center">${subTable.functionName}{{this.$i18n.t("info")}}</el-divider>
